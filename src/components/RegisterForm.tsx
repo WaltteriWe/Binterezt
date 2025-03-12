@@ -1,31 +1,31 @@
-import {useEffect, useState} from 'react';
-import {RegisterCredentials} from '../types/LocalTypes';
-import { useUser } from '../Hooks/apiHooks';
-import { useForm } from '../Hooks/formHooks';
+import { useEffect, useState } from "react";
+import { RegisterCredentials } from "../types/LocalTypes";
+import { useUser } from "../Hooks/apiHooks";
+import { useForm } from "../Hooks/formHooks";
 
 const RegisterForm = () => {
   const [usernameAvailable, setUsernameAvailable] = useState(true);
   const [emailAvailable, setEmailAvailable] = useState(true);
-  const {postRegister, getUserNameAvailable, getEmailAvailable} = useUser();
+  const { postRegister, getUserNameAvailable, getEmailAvailable } = useUser();
   const initValues: RegisterCredentials = {
-    username: '',
-    password: '',
-    email: '',
+    username: "",
+    password: "",
+    email: "",
   };
 
   const doRegister = async () => {
     try {
       const registerResult = await postRegister(inputs as RegisterCredentials);
-      console.log('doLogin result', registerResult);
+      console.log("doLogin result", registerResult);
     } catch (error) {
       console.error((error as Error).message);
       // Display error to user here(?)
     }
   };
 
-  const {handleSubmit, handleInputChange, inputs} = useForm(
+  const { handleSubmit, handleInputChange, inputs } = useForm(
     doRegister,
-    initValues,
+    initValues
   );
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <h1 className='neon-text font-bold text-pink-600'>Register</h1>
+      <h1 className="neon-text font-bold text-pink-600">Register</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center"
@@ -113,7 +113,7 @@ const RegisterForm = () => {
           )}
         </div>
         <button
-          className="my-2.5 block w-4/5 rounded-md bg-stone-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
+          className="my-2.5 block w-4/5 rounded-md bg-teal-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-pink-500"
           type="submit"
         >
           Register
