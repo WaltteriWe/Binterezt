@@ -51,9 +51,9 @@ const Modify = () => {
             <h1>Uploading...</h1>
           ) : (
             <>
-              <h1>Modify</h1>
+              <h1 className="neon-text font-bold">Modify</h1>
               <form onSubmit={handleSubmit}>
-                <div className="my-2 flex flex-col">
+                <div className="my-2 flex flex-col neon-text">
                   <label htmlFor="title">Title</label>
                   <input
                     name="title"
@@ -61,10 +61,10 @@ const Modify = () => {
                     id="title"
                     onChange={handleInputChange}
                     value={inputs.title}
-                    className="my-2 rounded-sm border-2 border-stone-500"
+                    className="my-2 rounded-sm neon-shadow bg-pink-500 w-64"
                   />
                 </div>
-                <div className="my-2 flex flex-col">
+                <div className="my-2 flex flex-col neon-text">
                   <label htmlFor="description">Description</label>
                   <textarea
                     name="description"
@@ -72,11 +72,11 @@ const Modify = () => {
                     id="description"
                     onChange={handleInputChange}
                     value={inputs.description}
-                    className="my-2 rounded-sm border-2 border-stone-500"
+                    className="my-2 rounded-sm neon-shadow bg-pink-500 w-64"
                   ></textarea>
                 </div>
                 <button
-                  className="cursor-pointer rounded-sm bg-stone-500 p-2 text-2xl"
+                  className="cursor-pointer rounded-sm bg-teal-500 hover:bg-pink-500 ease-in-out duration-700 p-2 text-2xl"
                   type="submit"
                   onClick={doUpload}
                 >
