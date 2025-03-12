@@ -1,18 +1,17 @@
-import {MediaItemWithOwner} from 'hybrid-types/DBTypes';
-import {useEffect, useRef} from 'react';
-import { useUserContext } from '../Hooks/ContextHooks';
-import { useComment } from '../Hooks/apiHooks';
-import { useCommentStore } from '../store';
-import { useForm } from '../Hooks/formHooks';
+import { MediaItemWithOwner } from "hybrid-types/DBTypes";
+import { useEffect, useRef } from "react";
+import { useUserContext } from "../Hooks/ContextHooks";
+import { useComment } from "../Hooks/apiHooks";
+import { useCommentStore } from "../store";
+import { useForm } from "../Hooks/formHooks";
 
-
-const Comments = ({item}: {item: MediaItemWithOwner}) => {
+const Comments = ({ item }: { item: MediaItemWithOwner }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const user = useUserContext();
-  const {comments, setComments} = useCommentStore();
-  const {postComment, getCommentsByMediaId} = useComment();
+  const { comments, setComments } = useCommentStore();
+  const { postComment, getCommentsByMediaId } = useComment();
 
-  const initValues = {comment_text: ''};
+  const initValues = { comment_text: "" };
   const doComment = async () => {
     // adding comments "locally" (dummy version)
     // addComment({
@@ -22,7 +21,7 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
     //   media_id: item.media_id,
     // });
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       return;
     }
@@ -32,14 +31,14 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
     getComments();
     // reset form
     if (inputRef.current) {
-      inputRef.current.value = '';
+      inputRef.current.value = "";
     }
     setInputs(initValues);
   };
 
-  const {handleSubmit, handleInputChange, inputs, setInputs} = useForm(
+  const { handleSubmit, handleInputChange, inputs, setInputs } = useForm(
     doComment,
-    initValues,
+    initValues
   );
 
   const getComments = async () => {
@@ -78,7 +77,7 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
           </div>
           <button
             disabled={!inputs.comment_text}
-            className="my-2.5 block w-4/5 rounded-md bg-stone-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-stone-700"
+            className="my-2.5 block w-4/5 rounded-md bg-teal-500 p-2 text-center transition-all duration-500 ease-in-out hover:bg-pink-500"
             type="submit"
           >
             Post
@@ -88,9 +87,12 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
       {comments.length > 0 && (
         <ul>
           {comments.map((comment) => (
-            <li key={comment.comment_id}>
+            <li
+              className="bg-pink-500 neon-text rounded-md p-2.5 my-2.5"
+              key={comment.comment_id}
+            >
               {comment.username} (
-              {new Date(comment.created_at || '').toLocaleString('fi-FI')}):
+              {new Date(comment.created_at || "").toLocaleString("fi-FI")}):
               {comment.comment_text}
             </li>
           ))}

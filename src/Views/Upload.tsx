@@ -1,18 +1,17 @@
-import {ChangeEvent, useState} from 'react';
-import { useFile, useMedia } from '../Hooks/apiHooks';
-import { useForm } from '../Hooks/formHooks';
-
+import { ChangeEvent, useState } from "react";
+import { useFile, useMedia } from "../Hooks/apiHooks";
+import { useForm } from "../Hooks/formHooks";
 
 const Upload = () => {
   const [uploading, setUploading] = useState(false);
-  const [uploadResult, setUploadResult] = useState('');
+  const [uploadResult, setUploadResult] = useState("");
   const [file, setFile] = useState<File | null>(null);
   //const navigate = useNavigate();
-  const {postFile} = useFile();
-  const {postMedia} = useMedia();
+  const { postFile } = useFile();
+  const { postMedia } = useMedia();
   const initValues = {
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   };
 
   const handleFileChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,7 @@ const Upload = () => {
 
     console.log(inputs);
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!file || !token) {
         return;
       }
@@ -39,7 +38,7 @@ const Upload = () => {
       //navigate('/');
 
       // OR notify user & clear inputs
-      setUploadResult('Media file uploaded!');
+      setUploadResult("Media file uploaded!");
       resetForm();
     } catch (e) {
       console.log((e as Error).message);
@@ -49,9 +48,9 @@ const Upload = () => {
     }
   };
 
-  const {handleSubmit, handleInputChange, inputs, setInputs} = useForm(
+  const { handleSubmit, handleInputChange, inputs, setInputs } = useForm(
     doUpload,
-    initValues,
+    initValues
   );
 
   const resetForm = () => {
@@ -61,68 +60,73 @@ const Upload = () => {
 
   return (
     <>
-    <div className='flex flex-col items-center justify-center '>
-      <h1>Upload</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input className='m-4 p-4 rounded-lg bg-black'
-            name="title"
-            type="text"
-            id="title"
-            onChange={handleInputChange}
-            value={inputs.title}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-purple-500">
+        <h1 className="neon-text font-bold">Upload</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              className="m-2 p-4 rounded-lg bg-pink-500"
+              name="title"
+              type="text"
+              id="title"
+              onChange={handleInputChange}
+              value={inputs.title}
+            />
+          </div>
+          <div>
+            <label htmlFor="description">Description</label>
+            <textarea
+              className="m-2 p-4 rounded-lg bg-pink-500 w-full"
+              name="description"
+              rows={5}
+              id="description"
+              onChange={handleInputChange}
+              value={inputs.description}
+            ></textarea>
+          </div>
+          <div>
+            <label htmlFor="file">File</label>
+            <input
+              className="m-2 p-4 rounded-lg bg-pink-500"
+              name="file"
+              type="file"
+              id="file"
+              accept="image/*, video/*"
+              onChange={handleFileChange}
+            />
+          </div>
+          <img
+            className=""
+            src={
+              file
+                ? URL.createObjectURL(file)
+                : "https://place-hold.it/200?text=Choose+image"
+            }
+            alt="preview"
+            width="350"
           />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-          className='m-4 p-4 rounded-lg bg-black'
-            name="description"
-            rows={5}
-            id="description"
-            onChange={handleInputChange}
-            value={inputs.description}
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="file">File</label>
-          <input className='m-4 p-4 rounded-lg bg-black'
-            name="file"
-            type="file"
-            id="file"
-            accept="image/*, video/*"
-            onChange={handleFileChange}
-            // TODO: reset filename in form
-          />
-        </div>
-        <img
-        className='flex justify-center items-center'
-          src={
-            file
-              ? URL.createObjectURL(file)
-              : 'https://place-hold.it/200?text=Choose+image'
-          }
-          alt="preview"
-          width="200"
-        />
-        <button
-        className="bg-black rounded-lg p-4 m-4 flex-col"
-          type="submit"
-          disabled={
-            file && inputs.title.length > 3 && inputs.description.length > 0
-              ? false
-              : true
-          }
-        >
-          {uploading ? 'Uploading..' : 'Upload'}
-        </button>
-        <button className="bg-black rounded-lg p-4 m-4 flex-col" type="reset" onClick={resetForm}>
-          Reset
-        </button>
-        <p>{uploadResult}</p>
-      </form> </div>
-
+          <button
+            className="bg-pink-500 rounded-lg p-4 m-2 flex-col w-50"
+            type="submit"
+            disabled={
+              file && inputs.title.length > 3 && inputs.description.length > 0
+                ? false
+                : true
+            }
+          >
+            {uploading ? "Uploading.." : "Upload"}
+          </button>
+          <button
+            className="bg-pink-500 rounded-lg p-4 m-2 flex-col w-50"
+            type="reset"
+            onClick={resetForm}
+          >
+            Reset
+          </button>
+          <p>{uploadResult}</p>
+        </form>{" "}
+      </div>
     </>
   );
 };

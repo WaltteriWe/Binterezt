@@ -1,6 +1,6 @@
-import { Link, Outlet } from 'react-router';
-import { useEffect } from 'react';
-import { useUserContext } from '../Hooks/ContextHooks';
+import { Link, Outlet } from "react-router";
+import { useEffect } from "react";
+import { useUserContext } from "../Hooks/ContextHooks";
 
 const Layout = () => {
   const { user, handleAutoLogin } = useUserContext();
@@ -13,33 +13,58 @@ const Layout = () => {
 
   return (
     <>
-      <h1 className='neon-text font-bold'>Binterezt</h1>
+      <h1 className="neon-text font-bold mb-5">Binterezt</h1>
       <div>
-        <nav>
-          <ul className='m-0 list-none p-0bg-stone-600 flex justify-center items-center neon-shadow'>
+        <nav className="mb-2">
+          <ul className="m-0 list-none p-0bg-stone-600 flex justify-center items-center neon-shadow bg-pink-600 text-black rounded-2xl">
             <li>
-              <Link className="block p-4 text-center hover:bg-stone-900 duration-800 ease-in-out hover:text-amber-600" to="/">Home</Link>
+              <Link
+                className="block p-4 text-center hover:bg-red-600 duration-800 ease-in-out hover:text-black bg-pink-600"
+                to="/"
+              >
+                Home
+              </Link>
             </li>
             {user ? (
               <>
                 <li>
-                  <Link className="block p-4 text-center hover:bg-stone-900 duration-800 ease-in-out hover:text-amber-600 " to="/profile">Profile</Link>
+                  <Link
+                    className="block p-4 text-center hover:bg-red-600 duration-800 ease-in-out hover:text-black "
+                    to="/profile"
+                  >
+                    Profile
+                  </Link>
                 </li>
                 <li>
-                  <Link className="block p-4 text-center hover:bg-stone-900 duration-800 ease-in-out hover:text-amber-600" to="/upload">Upload</Link>
+                  <Link
+                    className="block p-4 text-center hover:bg-red-600 duration-800 ease-in-out hover:text-black"
+                    to="/upload"
+                  >
+                    Upload
+                  </Link>
                 </li>
                 <li>
-                  <Link className="block p-4 text-center hover:bg-stone-900 duration-800 ease-in-out hover:text-amber-600" to="/logout">Logout</Link>
+                  <Link
+                    className="block p-4 text-center hover:bg-red-600 duration-800 ease-in-out hover:text-black"
+                    to="/logout"
+                  >
+                    Logout
+                  </Link>
                 </li>
               </>
             ) : (
               <li>
-                <Link className="block p-4 text-center hover:bg-stone-900 duration-800 ease-in-out hover:text-amber-600" to="/login">Login</Link>
+                <Link
+                  className="block p-4 text-center hover:bg-red-600 duration-800 ease-in-out hover:text-black"
+                  to="/login"
+                >
+                  Login
+                </Link>
               </li>
             )}
           </ul>
         </nav>
-        <main>
+        <main className="mt-4">
           <Outlet />
         </main>
       </div>
